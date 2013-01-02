@@ -1,0 +1,13 @@
+{
+  "name": "Favicon2SleipnirSearch",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "チャットワークで定型文を保存する機能",
+  "content_scripts": [
+    {
+      "matches": ["https://www.chatwork.com/*"],
+      "js": ["script.js"],
+      "run_at": "document_start"
+    }
+  ]
+}
