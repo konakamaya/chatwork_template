@@ -1,5 +1,78 @@
 $(document).ready(function(){
 	//ボタンの子要素を追加(select boxとボタン)
-	$(".toolbar").append('<div class=\"cw_buttons cw_toggle template\"><select name=\"example\"><option value=\"サンプル1\">サンプル1</option><option value=\"サンプル2\">サンプル2</option><option value=\"サンプル3\">サンプル3</option></select><input type=\"button\" class=\"btn\" name=\"insert\" value=\"保存\"></button></div>');
+	var memos = localStorage;
+	var selectbox = '<div class=\"cw_buttons cw_toggle template\"><select id=\"memo\" name=\"example\"> ';
+
+	for(var i = 0 ;i < memos.length; i++){
+		var key = memos.key(i);
+		var value = JSON.parse(memos.getItem(key));
+		selectbox += '<option value=\"'+key+'\">'+value.name+'</option> ';
+	}
+    selectbox += '</select><input id=\"insert\" type=\"button\" class=\"btn\" name=\"insert\" value=\"保存\"><input id=\"delete\" type=\"button\" class=\"btn\" name=\"delete\" value=\"削除\"><input id=\"use\" type=\"button\" class=\"btn\" name=\"use\" value=\"使用\"></div>';
+	$(".toolbar").append(selectbox);
+
 	//各ボタンを押した時の挙動(追加、削除)
+	$("#insert").click(function(){
+		var value = $("#cw_chattext").val();
+		if(value == "ここにメッセージ内容を入力"){
+			alert("メッセージを入力して下さい。");
+			return;
+		}
+		var name = prompt("名前を入力して下さい。");
+		var uniqueId = new UniqueId();
+		var uid = uniqueId.create();
+		localStorage.setItem(uid, JSON.stringify({"name": name, "value": value}));
+
+		$('#memo').empty();
+		var memos = localStorage;
+		for(var i = 0 ;i < memos.length; i++){
+			var key = memos.key(i);
+			var value = JSON.parse(memos.getItem(key));
+			var selectbox = '<option value=\"'+key+'\">'+value.name+'</option> ';
+			$('#memo').append(selectbox);
+		}		
+	});
+
+	$("#delete").click(function(){
+		var name = $("#memo :selected").text();
+		var key = $("#memo :selected").val();
+		var isConfirmed = confirm(name + "を削除しますか？");
+		if(isConfirmed){
+			localStorage.removeItem(key);
+		}else{
+			return;
+		}
+
+		$('#memo').empty();
+		var memos = localStorage;
+		for(var i = 0 ;i < memos.length; i++){
+			var key = memos.key(i);
+			var value = JSON.parse(memos.getItem(key));
+			var selectbox = '<option value=\"'+key+'\">'+value.name+'</option> ';
+			$('#memo').append(selectbox);
+		}
+
+	});
+
+	$('#use').click(function(){
+		var key = $("#memo :selected").val();
+		var value = JSON.parse(localStorage.getItem(key));
+		var message = value.value;
+		$('#cw_chattext').trigger("focus");
+		var oldMessage = '';
+		if($("#cw_chattext").val().length != 0){
+			oldMessage = $("#cw_chattext").val() + "\n";
+		}
+		$("#cw_chattext").val(oldMessage + message);
+	});
 });
+
+var UniqueId = function() {};
+UniqueId.prototype = {
+	create: function() {
+		var randam = Math.floor(Math.random() * 1000);
+		var date = new Date();
+		var time = date.getTime();
+		return time.toString()  + '_' + randam;
+	}
+};
