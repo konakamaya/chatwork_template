@@ -1,11 +1,11 @@
 $(document).ready(function(){
 	//ボタンの子要素を追加(select boxとボタン)
-	var memos = localStorage;
-	var selectbox = '<div class=\"cw_buttons cw_toggle template\"><select id=\"memo\" name=\"example\"> ';
+	var templates = localStorage;
+	var selectbox = '<div class=\"cw_buttons cw_toggle template\"><select id=\"templates\" class=\"templates\" name=\"example\" > ';
 
-	for(var i = 0 ;i < memos.length; i++){
-		var key = memos.key(i);
-		var value = JSON.parse(memos.getItem(key));
+	for(var i = 0 ;i < templates.length; i++){
+		var key = templates.key(i);
+		var value = JSON.parse(templates.getItem(key));
 		selectbox += '<option value=\"'+key+'\">'+value.name+'</option> ';
 	}
     selectbox += '</select><input id=\"insert\" type=\"button\" class=\"btn\" name=\"insert\" value=\"保存\"><input id=\"delete\" type=\"button\" class=\"btn\" name=\"delete\" value=\"削除\"><input id=\"use\" type=\"button\" class=\"btn\" name=\"use\" value=\"使用\"></div>';
@@ -23,19 +23,19 @@ $(document).ready(function(){
 		var uid = uniqueId.create();
 		localStorage.setItem(uid, JSON.stringify({"name": name, "value": value}));
 
-		$('#memo').empty();
-		var memos = localStorage;
-		for(var i = 0 ;i < memos.length; i++){
-			var key = memos.key(i);
-			var value = JSON.parse(memos.getItem(key));
+		$('#templates').empty();
+		var templates = localStorage;
+		for(var i = 0 ;i < templates.length; i++){
+			var key = templates.key(i);
+			var value = JSON.parse(templates.getItem(key));
 			var selectbox = '<option value=\"'+key+'\">'+value.name+'</option> ';
-			$('#memo').append(selectbox);
+			$('#templates').append(selectbox);
 		}		
 	});
 
 	$("#delete").click(function(){
-		var name = $("#memo :selected").text();
-		var key = $("#memo :selected").val();
+		var name = $("#templates :selected").text();
+		var key = $("#templates :selected").val();
 		var isConfirmed = confirm(name + "を削除しますか？");
 		if(isConfirmed){
 			localStorage.removeItem(key);
@@ -43,13 +43,13 @@ $(document).ready(function(){
 			return;
 		}
 
-		$('#memo').empty();
-		var memos = localStorage;
-		for(var i = 0 ;i < memos.length; i++){
-			var key = memos.key(i);
-			var value = JSON.parse(memos.getItem(key));
+		$('#templates').empty();
+		var templates = localStorage;
+		for(var i = 0 ;i < templates.length; i++){
+			var key = templates.key(i);
+			var value = JSON.parse(templates.getItem(key));
 			var selectbox = '<option value=\"'+key+'\">'+value.name+'</option> ';
-			$('#memo').append(selectbox);
+			$('#templates').append(selectbox);
 		}
 
 	});
