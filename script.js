@@ -21,7 +21,11 @@ $(document).ready(function(){
 		var name = prompt("名前を入力して下さい。");
 		var uniqueId = new UniqueId();
 		var uid = uniqueId.create();
-		localStorage.setItem(uid, JSON.stringify({"name": name, "value": value}));
+		if(name){
+			localStorage.setItem(uid, JSON.stringify({"name": name, "message": value}));
+		}else{
+			return;
+		}
 
 		$('#templates').empty();
 		var templates = localStorage;
@@ -55,9 +59,9 @@ $(document).ready(function(){
 	});
 
 	$('#use').click(function(){
-		var key = $("#memo :selected").val();
+		var key = $("#templates :selected").val();
 		var value = JSON.parse(localStorage.getItem(key));
-		var message = value.value;
+		var message = value.message;
 		$('#cw_chattext').trigger("focus");
 		var oldMessage = '';
 		if($("#cw_chattext").val().length != 0){
