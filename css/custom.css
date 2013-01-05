@@ -6,12 +6,13 @@
 }
 
 input[type="button"] {
- margin: 0px 2px 2px 2px;
+ margin: 2px 2px 2px 2px;
  padding: 0px 0px;
- vertical-align: middle;
+ vertical-align: top; 
  line-height: 100%;
 }
 
 .templates{
  width:100px;
 }
+

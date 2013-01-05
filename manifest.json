@@ -1,6 +1,6 @@
 {
   "name": "定型文",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "manifest_version": 2,
   "description": "チャットワークで使用する定型文を保存する機能です。",
   "icons": { "32": "images/icon_032.png",
@@ -10,7 +10,7 @@
     {
       "matches": ["https://www.chatwork.com/*"],
       "css": ["css/jquery-ui-1.9.2.custom.css","css/custom.css"],
-      "js": ["lib/jquery-1.8.3.min.js","lib/jquery-ui-1.9.2.custom.min.js","script.js"]
+      "js": ["lib/jquery-1.8.3.min.js","script.js"]
     }
   ]
 }
