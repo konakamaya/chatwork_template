@@ -9,7 +9,7 @@
   "content_scripts": [
     {
       "matches": ["https://www.chatwork.com/*"],
-      "css": ["css/jquery-ui-1.9.2.custom.css","css/custom.css"],
+      "css": ["css/custom.css"],
       "js": ["lib/jquery-1.8.3.min.js","script.js"]
     }
   ]
