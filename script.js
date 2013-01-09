@@ -34,7 +34,10 @@ $(document).ready(function(){
     $("#delete").click(function(){
         var name = $("#templates :selected").text();
         var key = $("#templates :selected").val();
-        var isConfirmed = confirm(name + "を削除しますか？");
+		var isConfirmed;
+		if(name){
+			isConfirmed = confirm(name + "を削除しますか？");
+		}
 
         if(isConfirmed){
             localStorage.removeItem(key);
