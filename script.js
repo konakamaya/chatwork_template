@@ -13,13 +13,12 @@ $(document).ready(function(){
     // 保存ボタンを押した時の挙動
     $("#insert").click(function(){
         var message = $("#cw_chattext").val();
-        if(message == "ここにメッセージ内容を入力"){
+		if(message === "ここにメッセージ内容を入力"){
             alert("メッセージを入力して下さい。");
             return;
         }
         var name = prompt("名前を入力して下さい。");
 
-        
         if(name){
             setMessage(name, message);
         }else{
@@ -34,16 +33,14 @@ $(document).ready(function(){
     $("#delete").click(function(){
         var name = $("#templates :selected").text();
         var key = $("#templates :selected").val();
-		var isConfirmed;
-		if(name){
-			isConfirmed = confirm(name + "を削除しますか？");
-		}
-
-        if(isConfirmed){
-            localStorage.removeItem(key);
-        }else{
-            return;
+        if(name){
+            if(confirm(name + "を削除しますか？")){
+                localStorage.removeItem(key);
+            }else{
+                return;
+            }
         }
+
 
         selectBoxRebuild();
 
@@ -55,7 +52,7 @@ $(document).ready(function(){
         var message = getMessage(key);    
         $('#cw_chattext').trigger("focus");
         var oldMessage = '';
-        if($("#cw_chattext").val().length != 0){
+        if($("#cw_chattext").val().length !== 0){
             oldMessage = $("#cw_chattext").val() + "\n";
         }
         $("#cw_chattext").val(oldMessage + message);
